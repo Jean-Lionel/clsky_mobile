@@ -58,6 +58,7 @@ const password = ref('');
 
 const handleLogin = async () => {
   try {
+   // console.log(store)
     await store.dispatch('login', {
       username: username.value,
       password: password.value

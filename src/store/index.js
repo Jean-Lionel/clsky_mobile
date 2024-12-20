@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import axios from 'axios';
+import axiosInstance from '../plugins/axios';
 
 export default createStore({
   state: {
@@ -21,7 +21,7 @@ export default createStore({
   actions: {
     async login({ commit }, credentials) {
       try {
-        const response = await axios.post('YOUR_API_URL/login', credentials);
+        const response = await axiosInstance.post('login', credentials);
         commit('setUser', response.data);
         return response;
       } catch (error) {
@@ -30,7 +30,7 @@ export default createStore({
     },
     async register({ commit }, userData) {
       try {
-        const response = await axios.post('YOUR_API_URL/register', userData);
+        const response = await axiosInstance.post('register', userData);
         return response;
       } catch (error) {
         throw error;
@@ -38,7 +38,7 @@ export default createStore({
     },
     async submitSurvey({ commit }, surveyData) {
       try {
-        const response = await axios.post('YOUR_API_URL/surveys', surveyData);
+        const response = await axiosInstance.post('surveys', surveyData);
         commit('addSurvey', response.data);
         return response;
       } catch (error) {
