@@ -3,38 +3,66 @@
     <ion-content class="ion-padding">
       <div class="register-container">
         <div class="header-section">
-          <img src="https://placehold.co/400" alt="Logo" class="logo" />
+          <img src="../assets/logo/logo.png" alt="Logo" class="logo" />
           <h1 class="title">Création de compte</h1>
         </div>
         
         <div class="form-container">
           <form @submit.prevent="handleRegister" class="register-form">
             <div class="form-grid">
-              <ion-item class="form-item">
-                <ion-label position="floating">Nom</ion-label>
-                <ion-input v-model="lastName" required class="custom-input"></ion-input>
-              </ion-item>
+              <ion-input
+                v-model="lastName"
+                label="Nom"
+                label-placement="floating"
+                fill="outline"
+                placeholder="Entrer votre nom"
+                class="custom-input"
+                required
+              ></ion-input>
 
-              <ion-item class="form-item">
-                <ion-label position="floating">Prénom</ion-label>
-                <ion-input v-model="firstName" required class="custom-input"></ion-input>
-              </ion-item>
+              <ion-input
+                v-model="firstName"
+                label="Prénom"
+                label-placement="floating"
+                fill="outline"
+                placeholder="Entrer votre prénom"
+                class="custom-input"
+                required
+              ></ion-input>
             </div>
 
-            <ion-item class="form-item">
-              <ion-label position="floating">Téléphone</ion-label>
-              <ion-input type="tel" v-model="phone" required class="custom-input"></ion-input>
-            </ion-item>
+            <ion-input
+              v-model="phone"
+              label="Téléphone"
+              label-placement="floating"
+              fill="outline"
+              type="tel"
+              placeholder="Entrer votre numéro de téléphone"
+              class="custom-input"
+              required
+            ></ion-input>
 
-            <ion-item class="form-item">
-              <ion-label position="floating">Email</ion-label>
-              <ion-input type="email" v-model="email" required class="custom-input"></ion-input>
-            </ion-item>
+            <ion-input
+              v-model="email"
+              label="Email"
+              label-placement="floating"
+              fill="outline"
+              type="email"
+              placeholder="Entrer votre email"
+              class="custom-input"
+              required
+            ></ion-input>
 
-            <ion-item class="form-item">
-              <ion-label position="floating">Mot de passe</ion-label>
-              <ion-input type="password" v-model="password" required class="custom-input"></ion-input>
-            </ion-item>
+            <ion-input
+              v-model="password"
+              label="Mot de passe"
+              label-placement="floating"
+              fill="outline"
+              type="password"
+              placeholder="Entrer votre mot de passe"
+              class="custom-input"
+              required
+            ></ion-input>
 
             <div class="button-container">
               <ion-button expand="block" type="submit" class="register-button">
@@ -53,7 +81,7 @@
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonItem, IonLabel, IonInput, IonButton } from '@ionic/vue';
+import { IonPage, IonContent, IonInput, IonButton } from '@ionic/vue';
 import { useStore } from 'vuex';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -83,13 +111,18 @@ const handleRegister = async () => {
 </script>
 
 <style scoped>
+:root {
+  --clsky-orange: #FF6600;
+  --clsky-dark: #333333;
+}
+
 .register-container {
   min-height: 100%;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px;
+  padding: 10px;
 }
 
 .header-section {
@@ -102,13 +135,13 @@ const handleRegister = async () => {
 .logo {
   width: 80px;
   height: 80px;
-  border-radius: 40px;
+  border-radius: 4px;
   margin-bottom: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .title {
-  color: #2f3542;
+  color: var(--clsky-dark);
   font-size: 28px;
   font-weight: 600;
   margin: 0;
@@ -118,7 +151,7 @@ const handleRegister = async () => {
 .form-container {
   background: white;
   border-radius: 24px;
-  padding: 24px;
+  padding: 10px;
   width: 100%;
   max-width: 500px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -127,39 +160,29 @@ const handleRegister = async () => {
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
-  margin-bottom: 8px;
-}
-
-.form-item {
-  --background: #f8f9fa;
-  --border-color: transparent;
-  --border-radius: 12px;
-  --padding-start: 16px;
-  --padding-end: 16px;
-  margin: 0;
-}
-
-.form-item:hover {
-  --background: #f1f3f5;
-}
-
-ion-item {
-  --highlight-height: 2px;
-  --highlight-color-focused: #3880ff;
 }
 
 .custom-input {
-  --padding-start: 8px;
-  --padding-end: 8px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
+  --border-radius: 8px;
+  --border-width: 1px;
+  --border-color: #d1d5db;
+  --background: white;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --highlight-color: var(--clsky-orange);
+  --placeholder-color: #666;
+  --color: var(--clsky-dark);
+}
+
+.custom-input:hover {
+  --border-color: var(--clsky-orange);
 }
 
 .button-container {
@@ -170,9 +193,11 @@ ion-item {
 }
 
 .register-button {
-  --background: #3880ff;
-  --border-radius: 12px;
-  --box-shadow: 0 4px 12px rgba(56, 128, 255, 0.3);
+  --background: rgba(255, 102, 0, 0.9);
+  --background-hover: #ff7519;
+  --background-activated: #e65c00;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3);
   margin: 0;
   height: 48px;
   font-weight: 600;
@@ -180,22 +205,32 @@ ion-item {
 }
 
 .login-link {
-  --color: #3880ff;
-  --border-radius: 12px;
+  --color: rgba(255, 102, 0, 0.9);
+  --border-radius: 8px;
   margin: 0;
   font-weight: 500;
 }
 
-/* Styles pour les états focus des inputs */
-ion-input:focus {
-  --background: #fff;
-  --border-color: #3880ff;
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-container {
+  animation: fadeIn 0.5s ease-out;
 }
 
 /* Media queries pour le responsive */
 @media (max-width: 480px) {
   .form-container {
-    padding: 20px;
+    padding: 10px;
     border-radius: 20px;
   }
 
@@ -213,19 +248,9 @@ ion-input:focus {
   }
 }
 
-/* Animation d'apparition */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.form-container {
-  animation: fadeIn 0.5s ease-out;
+/* États focus */
+.custom-input:focus {
+  --border-color: var(--clsky-orange);
+  --border-width: 2px;
 }
 </style>
