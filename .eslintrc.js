@@ -13,6 +13,13 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'vue/no-deprecated-slot-attribute': 'true'
+    'vue/no-deprecated-slot-attribute': 'false',
+    
+    "vue/valid-v-slot": [
+      "error",
+      {
+        allowModifiers: true
+      }
+    ],
   }
 }

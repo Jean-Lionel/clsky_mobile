@@ -2,8 +2,8 @@ import axios from 'axios';
 import router from '@/router';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://portail-api.kwunga.org/api/',
-    //baseURL: 'http://127.0.0.1:8000/api/',
+    //baseURL: 'https://portail-api.kwunga.org/api/',
+    baseURL: 'http://127.0.0.1:8000/api/',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',

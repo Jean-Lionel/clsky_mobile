@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import LoginPage from '../views/LoginPage.vue';
-import RegisterPage from '../views/RegisterPage.vue';
-import SurveyPage from '../views/SurveyPage.vue';
-import UserListPage from '../views/UserListPage.vue';
-
+import { authGuard } from './guards';
 
 const routes = [
   {
@@ -13,28 +9,38 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: LoginPage
+    component: () => import('@/views/LoginPage.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    component: RegisterPage
+    component: () => import('@/views/RegisterPage.vue')
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/DashboardPage.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['ADMINISTRATEUR', 'ENQUETEUR']
+    }
   },
   {
     path: '/survey',
     name: 'Survey',
-    component: SurveyPage
-  },
-  {
-    path: '/users',
-    name: 'Users',
-    component: UserListPage
+    component: () => import('@/views/SurveyPage.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['ENQUETEUR', 'ADMINISTRATEUR']
+    }
   }
-]
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes
-})
+});
 
-export default router
+router.beforeEach(authGuard);
+
+export default router;

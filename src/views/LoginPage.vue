@@ -4,11 +4,9 @@
       <div class="login-container">
         <div class="logo-container">
           <img src="../assets/logo/logo.png" alt="Logo" class="logo" />
-        </div>
-        
+        </div>      
         <div class="form-container">
           <h1 class="title">Connexion</h1>
-          
           <form @submit.prevent="handleLogin" class="login-form">
             <ion-input
               v-model="username"
@@ -53,8 +51,8 @@ import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
-const username = ref('');
-const password = ref('');
+const username = ref('admin@clsky.com');
+const password = ref('password123');
 
 const handleLogin = async () => {
   try {
@@ -63,7 +61,7 @@ const handleLogin = async () => {
       username: username.value,
       password: password.value
     });
-    router.push('/survey');
+    router.push('/dashboard');
   } catch (error) {
     console.error('Erreur de connexion:', error);
   }

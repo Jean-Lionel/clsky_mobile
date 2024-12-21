@@ -93,12 +93,14 @@ const firstName = ref('');
 const phone = ref('');
 const email = ref('');
 const password = ref('');
+const role = ref('ENQUETEUR');
 
 const handleRegister = async () => {
   try {
     await store.dispatch('register', {
       lastName: lastName.value,
       firstName: firstName.value,
+      role: role.value,
       phone: phone.value,
       email: email.value,
       password: password.value

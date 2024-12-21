@@ -67,7 +67,7 @@
             ></ion-textarea>
 
             <div class="button-container">
-              <ion-button expand="block" type="submit" class="submit-button">
+              <ion-button expand="block" type="submit" class="submit-button custom-toolbar" >
                 Enregistrer l'enquête
               </ion-button>
             </div>
@@ -94,8 +94,8 @@ const description = ref('');
 const handleSubmitSurvey = async () => {
   try {
     await store.dispatch('submitSurvey', {
-      phone: phone.value,
-      fullName: fullName.value,
+      phone_number: phone.value,
+      full_name: fullName.value,
       market: market.value,
       province: province.value,
       description: description.value
@@ -114,7 +114,7 @@ const handleSubmitSurvey = async () => {
 
 <style scoped>
 .custom-toolbar {
-  --background: #3880ff;
+  --background: #FF6600;
   --color: white;
 }
 
@@ -177,7 +177,7 @@ ion-textarea {
 }
 
 .submit-button {
-  --background: #3880ff;
+  --background: #FF6600;
   --border-radius: 8px;
   --box-shadow: 0 4px 12px rgba(56, 128, 255, 0.3);
   height: 48px;
