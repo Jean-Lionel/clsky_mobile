@@ -28,6 +28,8 @@
             </ion-card-content>
           </ion-card>
         </div>
+
+    
   
         <!-- Liste des enquêtes -->
         <ion-list>
@@ -39,15 +41,16 @@
                 <p>{{ client.phone_number }}</p>
               </ion-label>
             </ion-item>
-  
-            <ion-item-options>
-              <ion-item-option color="primary" @click="editClient(client)">
+
+            <ion-item>
+              <ion-button color="primary" @click="editClient(1)">
                 <ion-icon :icon="createOutline" slot="icon-only"></ion-icon>
-              </ion-item-option>
-              <ion-item-option color="danger" @click="deleteClient(client.id)">
+              </ion-button>
+              <ion-button color="danger" @click="deleteClient(1)">
                 <ion-icon :icon="trashOutline" slot="icon-only"></ion-icon>
-              </ion-item-option>
-            </ion-item-options>
+              </ion-button>
+            
+            </ion-item>
           </ion-item-sliding>
         </ion-list>
   

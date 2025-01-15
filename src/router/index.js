@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { authGuard } from './guards';
+import HomePage from '@/views/HomePage.vue';
+import ProfilePage from '@/views/ProfilePage.vue';
+import SettingsPage from '@/views/SettingsPage.vue';
 
 const routes = [
   {
@@ -29,6 +32,31 @@ const routes = [
     path: '/survey',
     name: 'Survey',
     component: () => import('@/views/SurveyPage.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['ENQUETEUR', 'ADMINISTRATEUR']
+    }
+  },
+  {
+    path: '/tabs/home',
+    name: 'home',
+    component: () => import('@/views/DashboardPage.vue'),
+    meta: {
+      requiresAuth: true,
+      roles: ['ENQUETEUR', 'ADMINISTRATEUR']
+    }
+  },
+  {
+    path: '/tabs/profile',
+    component: ProfilePage,
+    meta: {
+      requiresAuth: true,
+      roles: ['ENQUETEUR', 'ADMINISTRATEUR']
+    }
+  },
+  {
+    path: '/tabs/settings',
+    component: SettingsPage,
     meta: {
       requiresAuth: true,
       roles: ['ENQUETEUR', 'ADMINISTRATEUR']

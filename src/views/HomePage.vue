@@ -1,48 +1,36 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header>
       <ion-toolbar>
-        <ion-title>CL SKY COMPANY</ion-title>
+        <ion-title>Accueil</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content :fullscreen="true">
-      <idea-component></idea-component>
+    <ion-content class="ion-padding">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Bienvenue</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Contenu de votre page d'accueil</p>
+          <ion-button expand="block">Action principale</ion-button>
+        </ion-card-content>
+      </ion-card>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import IdeaComponent from "@/components/IdeaComponent.vue";
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonButton
+} from '@ionic/vue';
 </script>
-
-<style scoped>
-#container {
-  text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-</style>
