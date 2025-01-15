@@ -51,8 +51,11 @@
                 required
                 placeholder="Sélectionner la province"
               >
-                <ion-select-option value="kinshasa">Kinshasa</ion-select-option>
-                <ion-select-option value="kongo-central">Kongo Central</ion-select-option>
+                <ion-select-option  v-for="pronvince in burundianProvinces" :value="pronvince"
+                  :key="pronvince">
+                  {{ pronvince }}
+                </ion-select-option>
+            
               </ion-select>
             </div>
 
@@ -90,6 +93,10 @@ const fullName = ref('');
 const market = ref('');
 const province = ref('');
 const description = ref('');
+
+const burundianProvinces = ref([
+  'Bubanza', 'Bujumbura Mairie', 'Bujumbura Rural', 'Bururi', 'Cankuzo', 'Cibitoke', 'Gitega', 'Karuzi', 'Kayanza', 'Kirundo', 'Makamba', 'Muramvya', 'Muyinga', 'Mwaro', 'Ngozi', 'Rutana', 'Ruyigi'
+])
 
 const handleSubmitSurvey = async () => {
   try {
