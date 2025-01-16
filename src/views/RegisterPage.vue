@@ -66,9 +66,6 @@
             <div v-if="errorMessage" class="error-message">
               <ion-badge color="danger"> {{ errorMessage }}</ion-badge>
              </div>
-
-
-
             <div class="button-container">
               <ion-button expand="block" type="submit" class="register-button">
                 S'inscrire
@@ -86,7 +83,6 @@
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonInput, IonButton } from '@ionic/vue';
 import { useStore } from 'vuex';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';

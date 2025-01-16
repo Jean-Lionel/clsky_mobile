@@ -86,6 +86,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput,
          IonButton, IonSelect, IonSelectOption, IonTextarea } from '@ionic/vue';
 import { useStore } from 'vuex';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const store = useStore();
 const phone = ref('');
@@ -93,6 +94,7 @@ const fullName = ref('');
 const market = ref('');
 const province = ref('');
 const description = ref('');
+const router = useRouter();
 
 const burundianProvinces = ref([
   'Bubanza', 'Bujumbura Mairie', 'Bujumbura Rural', 'Bururi', 'Cankuzo', 'Cibitoke', 'Gitega', 'Karuzi', 'Kayanza', 'Kirundo', 'Makamba', 'Muramvya', 'Muyinga', 'Mwaro', 'Ngozi', 'Rutana', 'Ruyigi'
@@ -113,6 +115,8 @@ const handleSubmitSurvey = async () => {
     market.value = '';
     province.value = '';
     description.value = '';
+   
+    router.push('/dashboard');
   } catch (error) {
     console.error('Erreur lors de l\'enregistrement:', error);
   }

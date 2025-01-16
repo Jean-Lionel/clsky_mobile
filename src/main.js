@@ -34,11 +34,22 @@ import '@ionic/vue/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import store from './store/index.js'
+import * as allIonicComponents from '@ionic/vue'
+import * as allIonicons from 'ionicons/icons'
 
 const app = createApp(App)
   .use(IonicVue)
   .use(store)
   .use(router);
+
+  Object.keys(allIonicComponents).forEach(key => {
+    if (/^Ion[A-Z]/.test(key)) {
+      app.component(key, allIonicComponents[key])
+    }
+  })
+  
+  // Make all icons available globally
+  app.config.globalProperties.$ionicons = allIonicons
 
 router.isReady().then(() => {
   app.mount('#app');

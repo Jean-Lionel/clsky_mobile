@@ -7,11 +7,15 @@ export default createStore({
     users: [],
     surveys: [],
     clients: [],
+    totalClients : 0,
    // isAuthenticated : true,
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setTotalClients(state, total) {
+      state.totalClients = total;
     },
     setUsers(state, users) {
       state.users = users;
