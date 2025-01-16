@@ -28,12 +28,11 @@
             </ion-card-content>
           </ion-card>
         </div>
-
-    
   
         <!-- Liste des enquêtes -->
         <ion-list>
           <ion-item-sliding v-for="client in clients" :key="client.id">
+            <!-- Client Main Info -->
             <ion-item>
               <ion-label>
                 <h2>{{ client.full_name }}</h2>
@@ -41,15 +40,32 @@
                 <p>{{ client.phone_number }}</p>
               </ion-label>
             </ion-item>
-
+        
+            <!-- Client Details -->
             <ion-item>
-              <ion-button color="primary" @click="editClient(1)">
-                <ion-icon :icon="createOutline" slot="icon-only"></ion-icon>
-              </ion-button>
-              <ion-button color="danger" @click="deleteClient(1)">
-                <ion-icon :icon="trashOutline" slot="icon-only"></ion-icon>
-              </ion-button>
-            
+              <ion-label>
+                <p>{{ client.description }}</p>
+                <ion-row>
+                  <ion-col>
+                    <p>{{ formatDate(client.created_at) }}</p>
+                  </ion-col>
+                  <ion-col>
+                    <p>Par: {{ client.user?.name || 'Unknown' }}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-label>
+            </ion-item>
+        
+            <!-- Action Buttons -->
+            <ion-item class="ion-text-end">
+              <ion-buttons slot="end">
+                <ion-button color="primary" @click="editClient(client.id)">
+                  <ion-icon :icon="createOutline"></ion-icon>
+                </ion-button>
+                <ion-button color="danger" @click="deleteClient(client.id)">
+                  <ion-icon :icon="trashOutline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
             </ion-item>
           </ion-item-sliding>
         </ion-list>
@@ -70,15 +86,18 @@
   import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, 
            IonItem, IonLabel, IonItemSliding, IonItemOption, IonItemOptions,
     IonFab, IonFabButton, IonIcon, IonCard, IonCardContent, IonButtons, IonButton,
+    IonRow, IonNote,IonCol
  
     
   } from '@ionic/vue';
   import { addOutline, createOutline, trashOutline, logOutOutline } from 'ionicons/icons';
 import axiosInstance from '../plugins/axios';
+import { useStore } from 'vuex';
+import formatDate from '../plugins/utils';
   
   const router = useRouter();
-  const clients = ref([]);
   
+  const store = useStore();
   // Statistiques
   const totalClients = computed(() => clients.value.length);
   const todayClients = computed(() => {
@@ -87,16 +106,21 @@ import axiosInstance from '../plugins/axios';
       client.created_at.startsWith(today)
     ).length;
   });
+
+
   
   // Charger les données
   const loadClients = async () => {
     try {
       const response = await axiosInstance.get('clients');
-      clients.value = response.data;
+
+      store.state.clients = response.data;
     } catch (error) {
       console.error('Erreur lors du chargement des clients:', error);
     }
   };
+
+  const clients = computed(() => store.state.clients );
   
   // Actions
   const editClient = (client) => {

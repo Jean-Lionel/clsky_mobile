@@ -63,6 +63,11 @@
               class="custom-input"
               required
             ></ion-input>
+            <div v-if="errorMessage" class="error-message">
+              <ion-badge color="danger"> {{ errorMessage }}</ion-badge>
+             </div>
+
+
 
             <div class="button-container">
               <ion-button expand="block" type="submit" class="register-button">
@@ -94,6 +99,7 @@ const phone = ref('');
 const email = ref('');
 const password = ref('');
 const role = ref('ENQUETEUR');
+const errorMessage = ref('');
 
 const handleRegister = async () => {
   try {
@@ -107,7 +113,8 @@ const handleRegister = async () => {
     });
     router.push('/login');
   } catch (error) {
-    console.error('Erreur d\'inscription:', error);
+    console.error('Erreur d\'inscription:', error.response.data?.message);
+    errorMessage.value = error.response.data?.message;
   }
 };
 </script>

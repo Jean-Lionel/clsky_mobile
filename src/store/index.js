@@ -6,6 +6,7 @@ export default createStore({
     user: null,
     users: [],
     surveys: [],
+    clients: [],
    // isAuthenticated : true,
   },
   mutations: {
