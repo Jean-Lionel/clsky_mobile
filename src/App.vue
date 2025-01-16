@@ -9,9 +9,9 @@
           <ion-label>Accueil</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="profile" href="/tabs/profile">
-          <ion-icon :icon="personOutline"></ion-icon>
-          <ion-label>Profil</ion-label>
+        <ion-tab-button tab="profile" href="/tabs/reports">
+          <ion-icon :icon="documentOutline"></ion-icon>
+          <ion-label>Rapports</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="settings" href="/tabs/settings">
@@ -39,8 +39,8 @@ import {
 } from '@ionic/vue';
 import { 
   homeOutline, 
-  personOutline, 
-  settingsOutline 
+  settingsOutline,
+  documentOutline
 } from 'ionicons/icons';
 
 // État de connexion (à connecter avec votre système d'authentification)

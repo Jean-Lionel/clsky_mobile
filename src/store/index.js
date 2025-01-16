@@ -7,6 +7,7 @@ export default createStore({
     users: [],
     surveys: [],
     clients: [],
+    reports: [],
     totalClients : 0,
    // isAuthenticated : true,
   },

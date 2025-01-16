@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { authGuard } from './guards';
-import HomePage from '@/views/HomePage.vue';
 import ProfilePage from '@/views/ProfilePage.vue';
 import SettingsPage from '@/views/SettingsPage.vue';
+import ReportPage from '../views/ReportPage.vue';
 
 const routes = [
   {
@@ -44,7 +44,8 @@ const routes = [
     meta: {
       requiresAuth: true,
       roles: ['ENQUETEUR', 'ADMINISTRATEUR']
-    }
+    },
+    
   },
   {
     path: '/tabs/profile',
@@ -61,7 +62,15 @@ const routes = [
       requiresAuth: true,
       roles: ['ENQUETEUR', 'ADMINISTRATEUR']
     }
-  }
+  },
+  {
+    path: '/tabs/reports',
+    component: ReportPage,
+    meta: {
+      requiresAuth: true,
+      roles: ['ENQUETEUR', 'ADMINISTRATEUR']
+    }
+  },
 ];
 
 const router = createRouter({
