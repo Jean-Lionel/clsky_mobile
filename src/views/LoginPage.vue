@@ -51,8 +51,8 @@ import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
-const username = ref('admin@clsky.com');
-const password = ref('password123');
+const username = ref('');
+const password = ref('');
 
 const handleLogin = async () => {
   try {
