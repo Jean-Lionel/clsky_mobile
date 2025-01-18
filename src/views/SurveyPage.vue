@@ -115,8 +115,9 @@ const handleSubmitSurvey = async () => {
     market.value = '';
     province.value = '';
     description.value = '';
-   
-    router.push('/dashboard');
+    alert('Enquête enregistrée avec succès');
+    router.go(0)
+//    push('/dashboard');
   } catch (error) {
     console.error('Erreur lors de l\'enregistrement:', error);
   }
