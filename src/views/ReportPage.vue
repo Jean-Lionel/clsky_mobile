@@ -73,6 +73,7 @@
                     interface="action-sheet"
                     :interfaceOptions="{ header: 'Provinces' }"
                 >
+                <ion-select-option value="">Tous</ion-select-option>
                     <!-- <ion-icon :icon="locationOutline" slot="start" class="input-icon"></ion-icon> -->
                     <ion-select-option v-for="province in provinces" 
                       :value="province"
@@ -95,6 +96,7 @@
                     interface="action-sheet"
                     :interfaceOptions="{ header: 'Utilisateurs' }"
                   >
+                  <ion-select-option value="">Tous</ion-select-option>
                     <!-- <ion-icon :icon="peopleOutline" slot="start" class="input-icon"></ion-icon> -->
                     <ion-select-option v-for="user in users" 
                       :value="user.id"
@@ -124,19 +126,26 @@
                   <ion-icon :icon="searchOutline" slot="start"></ion-icon>
                   Rechercher
                 </ion-button>
+
               </div>
             </div>
           </form>
         </div>
-      </ion-content>
-      <ion-content>
+     <div>
+        <h1>Resultats de la recherche</h1>
+        <div>
+          Totals des Clients :  <strong>{{ clients.length }}</strong>
+        </div>
+     </div>
+      
         <ion-list>
             <ion-item v-for="client in clients" :key="client.id">
                 <ion-label>
-                <h2>{{ client.full_name }}</h2>
-                <p>{{ client.phone_number }}</p>
-                <p>{{ client.market }} </p>
-                <p>{{ client.province }}</p>
+                <h2> {{ client.full_name }}</h2>
+                <p> Phone :  {{ client.phone_number }}</p>
+                <p> Marche :  {{ client.market }} </p>
+                <p> Province : {{ client.province }}</p>
+                <p>Enqueteur : {{client.user.name ?? ""}}</p>
                 </ion-label>
                 
             </ion-item>
@@ -150,7 +159,7 @@
            IonButton, IonSelect, IonSelectOption, IonItem, IonIcon } from '@ionic/vue';
   import { searchOutline, refreshOutline, callOutline, personOutline, 
            storefrontOutline, locationOutline, peopleOutline } from 'ionicons/icons';
-  import { computed, ref } from 'vue';
+  import { computed, ref , onMounted} from 'vue';
   import { useStore } from 'vuex';
 import axiosInstance from '../plugins/axios';
   
@@ -165,17 +174,25 @@ import axiosInstance from '../plugins/axios';
   });
   
   const provinces = ref([
+   
     'Bubanza', 'Bujumbura Mairie', 'Bujumbura Rural', 'Bururi', 
     'Cankuzo', 'Cibitoke', 'Gitega', 'Karuzi', 'Kayanza', 
     'Kirundo', 'Makamba', 'Muramvya', 'Muyinga', 'Mwaro', 
     'Ngozi', 'Rutana', 'Ruyigi'
   ]);
   
-  const users = ref([
-    { id: 1, name: 'Admin User' },
-    { id: 2, name: 'John Doe' },
-  ]);
-  
+  const users = computed(() => store.state.users)
+
+  onMounted(async () => {
+    try {
+      const resp = await axiosInstance.get("users");
+      store.state.users = resp.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des rapports:', error);
+    }
+  });
+
+
   const handleSubmitSearch = async () => {
     try {
         //await store.dispatch('searchReports', search.value);
