@@ -3,6 +3,7 @@ import { authGuard } from './guards';
 import ProfilePage from '@/views/ProfilePage.vue';
 import SettingsPage from '@/views/SettingsPage.vue';
 import ReportPage from '../views/ReportPage.vue';
+import SurveyEdit from '../views/SurveyEdit.vue';
 
 const routes = [
   {
@@ -66,6 +67,14 @@ const routes = [
   {
     path: '/tabs/reports',
     component: ReportPage,
+    meta: {
+      requiresAuth: true,
+      roles: ['ENQUETEUR', 'ADMINISTRATEUR']
+    }
+  },
+  {
+    path: '/survey/:surveyId',
+    component: SurveyEdit,
     meta: {
       requiresAuth: true,
       roles: ['ENQUETEUR', 'ADMINISTRATEUR']

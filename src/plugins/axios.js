@@ -3,7 +3,7 @@ import router from '@/router';
 
 const axiosInstance = axios.create({
     //baseURL: 'https://portail-api.kwunga.org/api/',
-    baseURL: 'https://clskyapp.advanceditb.com/api/',
+    baseURL: 'http://127.0.0.1:8000/api/',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',

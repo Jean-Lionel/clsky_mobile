@@ -2,7 +2,15 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tableau de bord</ion-title>
+        <ion-title>Tableau de bord
+
+         
+        </ion-title>
+      <ion-item>
+        <ion-note slot="end">
+          Bonjour :  {{ connectedUser.user.name }}
+        </ion-note>
+      </ion-item>
         <ion-buttons slot="end">
           <ion-button @click="handleLogout">
             <ion-icon :icon="logOutOutline" slot="icon-only"></ion-icon>
@@ -10,7 +18,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-
+    
     <ion-content>
       <!-- En-tête statistiques -->
       <div class="stats-container ion-padding">
@@ -28,7 +36,7 @@
           </ion-card-content>
         </ion-card>
       </div>
-
+      
       <!-- Liste des enquêtes -->
       <ion-list>
         <ion-item-sliding v-for="client in clients" :key="client.id">
@@ -39,7 +47,7 @@
               <p>{{ client.phone_number }}</p>
             </ion-label>
           </ion-item>
-
+          
           <ion-item>
             <ion-label>
               <p>{{ client.description }}</p>
@@ -53,7 +61,7 @@
               </ion-row>
             </ion-label>
           </ion-item>
-
+          
           <ion-item class="ion-text-end">
             <ion-buttons slot="end">
               <ion-button color="primary" @click="editClient(client.id)">
@@ -64,14 +72,42 @@
               </ion-button>
             </ion-buttons>
           </ion-item>
+          
+          <ion-accordion-group v-if="client.client_history.length > 0
+&& connectedUser.user.role == 'ADMINISTRATEUR'
+">
+            <ion-accordion value="first">
+              <ion-item slot="header" color="light">
+                <ion-label>
+                  <h3>Historique</h3>
+                </ion-label>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+               
+                <ion-list>
+                  <ion-item v-for="history in client.client_history" :key="history.id">
+
+                  
+                  
+                    <ion-icon color="danger" slot="start" :icon="listCircle" size="large"></ion-icon>
+                      <ion-label>{{history.full_name}} | {{history.province}}</ion-label>
+                      <ion-note slot="end">{{ history.phone_number }}
+                      
+
+                      </ion-note>
+                  </ion-item>
+                  </ion-list>  
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
         </ion-item-sliding>
       </ion-list>
-
+      
       <!-- Indicateur de chargement -->
       <div ref="loadingTrigger" class="loading-trigger">
         <ion-spinner v-if="isLoading"></ion-spinner>
       </div>
-
+      
       <!-- FAB pour ajouter une nouvelle enquête -->
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button @click="goToNewSurvey" :style="{ '--background': '#FF6600' }">
@@ -86,11 +122,14 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, 
-         IonItem, IonLabel, IonItemSliding, IonItemOption, IonItemOptions,
-         IonFab, IonFabButton, IonIcon, IonCard, IonCardContent, IonButtons, 
-         IonButton, IonRow, IonNote, IonCol, IonSpinner
+  IonItem, IonLabel, IonItemSliding, IonItemOption, IonItemOptions,
+  IonFab, IonFabButton, IonIcon, IonCard, IonCardContent, IonButtons, 
+  IonButton, IonRow, IonNote, IonCol, IonSpinner,
+  IonAccordion,
+  IonAccordionGroup,
+
 } from '@ionic/vue';
-import { addOutline, createOutline, trashOutline, logOutOutline } from 'ionicons/icons';
+import { addOutline, createOutline, trashOutline, logOutOutline ,listCircle} from 'ionicons/icons';
 import axiosInstance from '../plugins/axios';
 import { useStore } from 'vuex';
 import formatDate from '../plugins/utils';
@@ -108,24 +147,24 @@ const totalClients = computed(() => store.state.totalClients || 0);
 const todayClients = computed(() => {
   const today = new Date().toISOString().split('T')[0];
   return clients.value.filter(client => 
-    client.created_at.startsWith(today)
+  client.created_at.startsWith(today)
   ).length;
 });
 
 // Configuration de l'Intersection Observer
 const setupInfiniteScroll = () => {
   const observer = new IntersectionObserver(
-    (entries) => {
-      const target = entries[0];
-      if (target.isIntersecting && !isLoading.value && hasMorePages.value) {
-        loadMoreClients();
-      }
-    },
-    {
-      threshold: 0.5
+  (entries) => {
+    const target = entries[0];
+    if (target.isIntersecting && !isLoading.value && hasMorePages.value) {
+      loadMoreClients();
     }
+  },
+  {
+    threshold: 0.5
+  }
   );
-
+  
   if (loadingTrigger.value) {
     observer.observe(loadingTrigger.value);
   }
@@ -134,7 +173,7 @@ const setupInfiniteScroll = () => {
 // Charger plus de clients
 const loadMoreClients = async () => {
   if (isLoading.value || !hasMorePages.value) return;
-
+  
   try {
     isLoading.value = true;
     const response = await axiosInstance.get(`clients?page=${currentPage.value}`);
@@ -179,6 +218,12 @@ const handleLogout = async () => {
     console.error('Erreur lors de la déconnexion:', error);
   }
 };
+
+const connectedUser = computed(() => {
+  const u = JSON.parse(localStorage.getItem('user')); 
+  ///console.log();
+  return u
+})
 
 onMounted(() => {
   setupInfiniteScroll();

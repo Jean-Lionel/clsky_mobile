@@ -35,6 +35,7 @@ export default createStore({
       try {
         const response = await axiosInstance.post('login', credentials);
         localStorage.setItem('token' , response.data?.token);
+        localStorage.setItem('user' , JSON.stringify(response.data));
         commit('setUser', response.data);
         return response;
       } catch (error) {
