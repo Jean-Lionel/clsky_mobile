@@ -52,6 +52,21 @@
               class="custom-input"
               required
             ></ion-input>
+            <ion-item>
+              <ion-label>ROLE</ion-label>
+              <ion-select
+                v-model="role"
+              
+              >
+                <ion-select-option
+                  v-for="option in options"
+                  :key="option"
+                  :value="option"
+                >
+                  {{ option }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
 
             <ion-input
               v-model="password"
@@ -95,6 +110,7 @@ const phone = ref('');
 const email = ref('');
 const password = ref('');
 const role = ref('ENQUETEUR');
+const options = ref(['ENQUETEUR', 'ADMINISTRATEUR']);
 const errorMessage = ref('');
 
 const handleRegister = async () => {
