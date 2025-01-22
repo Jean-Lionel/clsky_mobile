@@ -229,7 +229,8 @@ const handleLogout = async () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
 
-    router.push('/login');
+   // router.push('/login');
+    window.location.href = '/login';
   } catch (error) {
     console.error('Erreur lors de la déconnexion:', error);
   }

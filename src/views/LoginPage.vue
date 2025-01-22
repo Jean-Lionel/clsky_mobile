@@ -66,7 +66,8 @@ const handleLogin = async () => {
       username: username.value,
       password: password.value
     });
-    router.push('/dashboard');
+   // router.push('/dashboard');
+    window.location.href = '/dashboard';
   } catch (error) {
     console.error('Erreur de connexion:', error);
     errorMessage.value = error.response.data.message
