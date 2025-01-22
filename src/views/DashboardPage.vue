@@ -86,16 +86,19 @@
                
                 <ion-list>
                   <ion-item v-for="history in client.client_history" :key="history.id">
-
-                  
-                  
                     <ion-icon color="danger" slot="start" :icon="listCircle" size="large"></ion-icon>
                       <ion-label>{{history.full_name}} | {{history.province}}</ion-label>
-                      <ion-note slot="end">{{ history.phone_number }}
-                      
-
+                      <ion-note slot="end">{{ history.phone_number }} <br>
+                       
+                        <ion-label color="primary" v-if="history.used == 'ACCEPTED'"> {{ history.used  }}</ion-label>
+                        <ion-label color="danger" v-if="history.used == 'REFUSE'"> {{ history.used  }}</ion-label>
                       </ion-note>
+                      <ion-icon color="primary" @click="validateChange(history.id)" slot="end" :icon="checkmarkCircle" size="large"
+                      v-if="!history.used "
+                      ></ion-icon>
+                      <ion-icon   v-if="!history.used " color="default" slot="end" @click="refuseChange(history.id)" :icon="closeCircle" size="large"></ion-icon>
                   </ion-item>
+                  
                   </ion-list>  
               </div>
             </ion-accordion>
@@ -129,7 +132,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList,
   IonAccordionGroup,
 
 } from '@ionic/vue';
-import { addOutline, createOutline, trashOutline, logOutOutline ,listCircle} from 'ionicons/icons';
+import { addOutline,checkmarkCircle,closeCircle, createOutline, trashOutline, logOutOutline ,listCircle} from 'ionicons/icons';
 import axiosInstance from '../plugins/axios';
 import { useStore } from 'vuex';
 import formatDate from '../plugins/utils';
@@ -150,6 +153,16 @@ const todayClients = computed(() => {
   client.created_at.startsWith(today)
   ).length;
 });
+
+const refuseChange = async (item) => {
+  await axiosInstance.get(`refuse/${item}`)
+  window.location.reload();
+ 
+}
+const validateChange = async (item) => {
+  await axiosInstance.get(`accepte/${item}`)
+  window.location.reload();
+}
 
 // Configuration de l'Intersection Observer
 const setupInfiniteScroll = () => {

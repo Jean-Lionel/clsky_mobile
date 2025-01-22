@@ -61,7 +61,10 @@
               :rows="4"
               placeholder="Entrer une description détaillée"
             ></ion-textarea>
-
+            <div v-if="error" class="error-message">
+              <ion-spinner name="dots"></ion-spinner>
+              <ion-label color="danger">{{ error }}</ion-label>
+            </div>
             <div class="button-container">
               <ion-button expand="block" type="submit" class="submit-button custom-toolbar" >
                Modifier les Informations 
@@ -98,6 +101,7 @@ const fullName = ref('');
 const market = ref('');
 const province = ref('');
 const description = ref('');
+const error = ref('');
 const router = useRouter();
 const burundianProvinces = ref([
   'Bubanza', 'Bujumbura Mairie', 'Bujumbura Rural', 'Bururi', 'Cankuzo', 'Cibitoke', 'Gitega', 'Karuzi', 'Kayanza', 'Kirundo', 'Makamba', 'Muramvya', 'Muyinga', 'Mwaro', 'Ngozi', 'Rutana', 'Ruyigi'
@@ -117,14 +121,24 @@ const getCustomer = async () => {
 
 const handleSubmitSurvey = async () => {
 
-  const response = await axiosInstance.put(`clients/${itemID.value}`, {
+  try {
+    const response = await axiosInstance.put(`clients/${itemID.value}`, {
     id : itemID.value,
     phone_number: phone.value,
     full_name: fullName.value,
     market: market.value,
     province: province.value,
     description: description.value
-  })
+    })
+    route.push("/dashboard?reload=1" )
+    
+  } catch (e) {
+    error.value = e.response.data.message
+  
+  //  alert('Erreur de connexion :', error)
+  }
+
+  
 }
 
 
