@@ -6,6 +6,9 @@ export function authGuard(to, from, next) {
 
   // Si la route nécessite une authentification
   if (requiresAuth && !store.getters.isAuthenticated) {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
     next('/login');
     return;
   }

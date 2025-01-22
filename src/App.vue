@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { 
   IonApp, 
   IonRouterOutlet, 
@@ -42,7 +42,14 @@ import {
   settingsOutline,
   documentOutline
 } from 'ionicons/icons';
+import store from './store';
+const isAuthenticated = ref(false);
 
 // État de connexion (à connecter avec votre système d'authentification)
-const isAuthenticated = ref(true);
+onMounted(() => {
+  const check = localStorage.getItem('token');
+  
+  isAuthenticated.value = !!check;
+})
+
 </script>

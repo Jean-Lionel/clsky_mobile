@@ -70,10 +70,10 @@
               <ion-button expand="block" type="submit" class="register-button">
                 S'inscrire
               </ion-button>
-
+<!-- 
               <ion-button expand="block" fill="clear" router-link="/login" class="login-link">
                 Déjà inscrit ? Se connecter
-              </ion-button>
+              </ion-button> -->
             </div>
           </form>
         </div>
@@ -107,7 +107,7 @@ const handleRegister = async () => {
       email: email.value,
       password: password.value
     });
-    router.push('/login');
+    router.push('/tabs/settings');
   } catch (error) {
     console.error('Erreur d\'inscription:', error.response.data?.message);
     errorMessage.value = error.response.data?.message;

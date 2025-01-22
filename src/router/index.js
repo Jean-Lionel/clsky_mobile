@@ -4,6 +4,7 @@ import ProfilePage from '@/views/ProfilePage.vue';
 import SettingsPage from '@/views/SettingsPage.vue';
 import ReportPage from '../views/ReportPage.vue';
 import SurveyEdit from '../views/SurveyEdit.vue';
+import RegisterPage from '../views/RegisterPage.vue';
 
 const routes = [
   {
@@ -51,6 +52,14 @@ const routes = [
   {
     path: '/tabs/profile',
     component: ProfilePage,
+    meta: {
+      requiresAuth: true,
+      roles: ['ENQUETEUR', 'ADMINISTRATEUR']
+    }
+  },
+  {
+    path: '/users/add',
+    component: RegisterPage,
     meta: {
       requiresAuth: true,
       roles: ['ENQUETEUR', 'ADMINISTRATEUR']

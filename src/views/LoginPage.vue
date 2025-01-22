@@ -28,14 +28,18 @@
               class="custom-input"
               required
             ></ion-input>
-
+           <ion-list v-if="errorMessage">
+            <ion-item>
+              <ion-label color="danger">
+                {{ errorMessage }}
+              </ion-label>
+            </ion-item>
+           </ion-list>
             <ion-button expand="block" type="submit" class="login-button">
               Se connecter
             </ion-button>
 
-            <ion-button expand="block" fill="primary" router-link="/register" class="register-button">
-              Créer un compte
-            </ion-button>
+           
           </form>
         </div>
       </div>
@@ -53,6 +57,7 @@ const store = useStore();
 const router = useRouter();
 const username = ref('');
 const password = ref('');
+const errorMessage = ref('');
 
 const handleLogin = async () => {
   try {
@@ -64,6 +69,7 @@ const handleLogin = async () => {
     router.push('/dashboard');
   } catch (error) {
     console.error('Erreur de connexion:', error);
+    errorMessage.value = error.response.data.message
   }
 };
 </script>

@@ -67,9 +67,9 @@
               <ion-button color="primary" @click="editClient(client.id)">
                 <ion-icon :icon="createOutline"></ion-icon>
               </ion-button>
-              <ion-button color="danger" @click="deleteClient(client.id)">
+              <!-- <ion-button color="danger" @click="deleteClient(client.id)">
                 <ion-icon :icon="trashOutline"></ion-icon>
-              </ion-button>
+              </ion-button> -->
             </ion-buttons>
           </ion-item>
           
@@ -226,6 +226,9 @@ const goToNewSurvey = () => {
 const handleLogout = async () => {
   try {
     await axiosInstance.post('logout');
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
     router.push('/login');
   } catch (error) {
     console.error('Erreur lors de la déconnexion:', error);

@@ -53,10 +53,10 @@
           </ion-item>
 
           <ion-item-options>
-            <ion-item-option color="warning" @click="handleEdit(user)">
+            <!-- <ion-item-option color="warning" @click="handleEdit(user)">
               <ion-icon slot="start" :icon="createOutline"></ion-icon>
               Edit
-            </ion-item-option>
+            </ion-item-option> -->
             <ion-item-option color="danger" @click="handleDelete(user)">
               <ion-icon slot="start" :icon="trashOutline"></ion-icon>
               Delete
