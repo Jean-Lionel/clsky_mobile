@@ -68,6 +68,15 @@
               :rows="4"
               placeholder="Entrer une description détaillée"
             ></ion-textarea>
+            <div v-if="errorMessage">
+              <ion-list v-if="errorMessage">
+                <ion-item>
+                  <ion-label color="danger">
+                    {{ errorMessage }}
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </div>
 
             <div class="button-container">
               <ion-button expand="block" type="submit" class="submit-button custom-toolbar" >
@@ -94,6 +103,7 @@ const fullName = ref('');
 const market = ref('');
 const province = ref('');
 const description = ref('');
+const errorMessage = ref('');
 const router = useRouter();
 
 const burundianProvinces = ref([
@@ -120,6 +130,7 @@ const handleSubmitSurvey = async () => {
 //    push('/dashboard');
   } catch (error) {
     console.error('Erreur lors de l\'enregistrement:', error);
+    errorMessage.value = error.response.data.message
   }
 };
 </script>

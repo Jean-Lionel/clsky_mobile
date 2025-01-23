@@ -3,13 +3,17 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Tableau de bord
-
-         
         </ion-title>
       <ion-item>
         <ion-note slot="end">
           Bonjour :  {{ connectedUser.user.name }}
         </ion-note>
+        <ion-label>
+          <ion-button>
+            <ion-icon name="notifications-outline"></ion-icon>
+          </ion-button>
+         
+        </ion-label>
       </ion-item>
         <ion-buttons slot="end">
           <ion-button @click="handleLogout">
@@ -39,7 +43,7 @@
       
       <!-- Liste des enquêtes -->
       <ion-list>
-        <ion-item-sliding v-for="client in clients" :key="client.id">
+        <ion-item-sliding v-for="client in currentClients" :key="client.id">
           <ion-item>
             <ion-label>
               <h2>{{ client.full_name }}</h2>
@@ -132,7 +136,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList,
   IonAccordionGroup,
 
 } from '@ionic/vue';
-import { addOutline,checkmarkCircle,closeCircle, createOutline, trashOutline, logOutOutline ,listCircle} from 'ionicons/icons';
+import { addOutline,checkmarkCircle,closeCircle, createOutline, logOutOutline ,listCircle} from 'ionicons/icons';
 import axiosInstance from '../plugins/axios';
 import { useStore } from 'vuex';
 import formatDate from '../plugins/utils';
@@ -144,6 +148,9 @@ const isLoading = ref(false);
 const currentPage = ref(1);
 const hasMorePages = ref(true);
 const clients = ref([]);
+
+
+const currentClients = computed(() => clients.value.sort((a, b) => a.totalModifications < b.totalModifications ? 1 : -1));
 
 // Statistiques
 const totalClients = computed(() => store.state.totalClients || 0);

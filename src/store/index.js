@@ -28,7 +28,16 @@ export default createStore({
   getters: {
     isAuthenticated() {
       return true;
-    }
+    },
+    connectedUser() {
+      const u = JSON.parse(localStorage.getItem('user')); 
+      ///console.log();
+      return u
+    },
+    isAdamin() {
+      const u = JSON.parse(localStorage.getItem('user')); 
+      return  u.user?.role === 'ADMINISTRATEUR'
+    },
   },
   actions: {
     async login({ commit }, credentials) {

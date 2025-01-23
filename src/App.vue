@@ -9,12 +9,12 @@
           <ion-label>Accueil</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="profile" href="/tabs/reports">
+        <ion-tab-button v-if="isAdmin" tab="profile" href="/tabs/reports">
           <ion-icon :icon="documentOutline"></ion-icon>
           <ion-label>Rapports</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="settings" href="/tabs/settings">
+        <ion-tab-button v-if="isAdmin" tab="settings" href="/tabs/settings">
           <ion-icon :icon="settingsOutline"></ion-icon>
           <ion-label>Paramètres</ion-label>
         </ion-tab-button>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { 
   IonApp, 
   IonRouterOutlet, 
@@ -41,15 +41,18 @@ import {
   homeOutline, 
   settingsOutline,
   documentOutline
-} from 'ionicons/icons';
-import store from './store';
+} from 'ionicons/icons'
+import { useStore } from 'vuex';
 const isAuthenticated = ref(false);
-
+const store = useStore();
 // État de connexion (à connecter avec votre système d'authentification)
 onMounted(() => {
   const check = localStorage.getItem('token');
-  
   isAuthenticated.value = !!check;
 })
+const isAdmin = computed(() => {
+  //console.log('hdhddh', )
+  return store.getters.isAdamin;
+} )
 
 </script>
